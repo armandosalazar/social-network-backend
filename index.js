@@ -1,4 +1,5 @@
 const server = require('./src/server');
+const { PORT } = require('./src/config');
 
-server.listen(3000);
-console.log(`🚀 Server is running at port: ${3000}`);
+server.listen(PORT, '192.168.0.30');
+console.log(`🚀 Server is running at port: ${PORT}`);
