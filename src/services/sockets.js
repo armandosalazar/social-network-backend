@@ -5,8 +5,11 @@ module.exports = (server) => {
 
         console.log(socket.id);
 
+        socket.emit('connection', 'Welcome to the ase!');
+
         socket.on('data', (data) => {
             console.log(data);
+            server.emit('data', data);
         });
     });
 };

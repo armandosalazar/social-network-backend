@@ -10,10 +10,6 @@ app.use(morgan('dev'));
 
 app.use('/api/', require('./routes'));
 
-app.get('/', (req, res) => {
-    res.send('Hello World!');
-});
-
 app.get('/ping', (req, res) => {
     res.send('pong');
 });
