@@ -1,18 +1,20 @@
-const { Router } = require('express')
+const { Router } = require("express");
 
-const router = Router()
+const router = Router();
 const people = [
   {
-    name: 'John Doe'
-  }, {
-    name: 'Jane Brown'
-  }, {
-    name: 'John Brown'
-  }
-]
+    name: "John Doe",
+  },
+  {
+    name: "Jane Brown",
+  },
+  {
+    name: "John Brown",
+  },
+];
 
-router.get('/', (req, res) => {
-  res.json(people)
-})
+router.get("/", (req, res) => {
+  res.json(people);
+});
 
-module.exports = router
+module.exports = router;

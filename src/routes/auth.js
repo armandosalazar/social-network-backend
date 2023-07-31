@@ -1,39 +1,39 @@
-const { Router } = require('express')
-const { User } = require('../models')
-const bcrypt = require('bcrypt')
+const { Router } = require("express");
+const { User } = require("../models");
+const bcrypt = require("bcrypt");
 
-const router = Router()
+const router = Router();
 
-router.post('/', async (req, res) => {
-  const { email, password } = req.body
+router.post("/", async (req, res) => {
+  const { email, password } = req.body;
 
   const user = await User.findOne({
-    attributes: ['id', 'fullName', 'email', 'password'],
+    attributes: ["id", "fullName", "email", "password"],
     where: {
-      email
-    }
-  })
+      email,
+    },
+  });
 
   if (!user) {
     return res.status(401).json({
       code: res.statusCode,
-      error: 'Invalid credentials!'
-    })
+      error: "Invalid credentials!",
+    });
   }
 
-  const isValidPassword = await bcrypt.compare(password, user.password)
+  const isValidPassword = await bcrypt.compare(password, user.password);
 
   if (!isValidPassword) {
     return res.status(401).json({
       code: res.statusCode,
-      error: 'Invalid credentials!'
-    })
+      error: "Invalid credentials!",
+    });
   }
 
   res.status(200).json({
     code: res.statusCode,
-    message: 'Login successful!'
-  })
-})
+    message: "Login successful!",
+  });
+});
 
-module.exports = router
+module.exports = router;
