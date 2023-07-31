@@ -1,1 +1,3 @@
-// Config here
+module.exports = {
+  singleQuote: true,
+};

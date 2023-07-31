@@ -1,8 +1,8 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../database");
+const { DataTypes } = require('sequelize');
+const sequelize = require('../database');
 
 const User = sequelize.define(
-  "user",
+  'user',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -17,12 +17,12 @@ const User = sequelize.define(
       type: DataTypes.STRING,
       allowNull: false,
       unique: {
-        name: "users_email",
-        msg: "Email already exists",
+        name: 'users_email',
+        msg: 'Email already exists',
       },
       validate: {
         isEmail: {
-          msg: "Invalid email",
+          msg: 'Invalid email',
         },
       },
     },
@@ -41,8 +41,8 @@ const User = sequelize.define(
 );
 
 User.associate = (models) => {
-  User.hasMany(models.Post, { as: "posts", foreignKey: "userId" });
-  User.hasMany(models.Comment, { as: "comments", foreignKey: "userId" });
+  User.hasMany(models.Post, { as: 'posts', foreignKey: 'userId' });
+  User.hasMany(models.Comment, { as: 'comments', foreignKey: 'userId' });
 };
 
 module.exports = User;

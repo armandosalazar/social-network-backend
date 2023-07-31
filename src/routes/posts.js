@@ -1,11 +1,11 @@
-const posts = require("./posts.json");
+const posts = require('./posts.json');
 
-module.exports = require("express")
+module.exports = require('express')
   .Router()
-  .get("/", (req, res) => {
+  .get('/', (req, res) => {
     res.json(posts);
   })
-  .post("/", (req, res) => {
+  .post('/', (req, res) => {
     const post = req.body;
 
     posts.push(post);

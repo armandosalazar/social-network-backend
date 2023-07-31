@@ -1,8 +1,8 @@
-const { DataTypes } = require("sequelize");
-const sequelize = require("../database");
+const { DataTypes } = require('sequelize');
+const sequelize = require('../database');
 
 const Comment = sequelize.define(
-  "comment",
+  'comment',
   {
     id: {
       type: DataTypes.INTEGER,
@@ -34,8 +34,8 @@ const Comment = sequelize.define(
 );
 
 Comment.associate = (models) => {
-  Comment.belongsTo(models.User, { as: "user", foreignKey: "userId" });
-  Comment.belongsTo(models.Post, { as: "post", foreignKey: "postId" });
+  Comment.belongsTo(models.User, { as: 'user', foreignKey: 'userId' });
+  Comment.belongsTo(models.Post, { as: 'post', foreignKey: 'postId' });
 };
 
 module.exports = Comment;

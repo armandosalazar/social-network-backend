@@ -1,19 +1,19 @@
-const { Router } = require("express");
+const { Router } = require('express');
 
 const router = Router();
 const people = [
   {
-    name: "John Doe",
+    name: 'John Doe',
   },
   {
-    name: "Jane Brown",
+    name: 'Jane Brown',
   },
   {
-    name: "John Brown",
+    name: 'John Brown',
   },
 ];
 
-router.get("/", (req, res) => {
+router.get('/', (req, res) => {
   res.json(people);
 });
 

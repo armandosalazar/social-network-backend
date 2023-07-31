@@ -1,6 +1,6 @@
-const server = require("./src/server");
-const sequelize = require("./src/database");
-const { PORT } = require("./src/config");
+const server = require('./src/server');
+const sequelize = require('./src/database');
+const { PORT } = require('./src/config');
 
 sequelize.sync({ force: true });
 
