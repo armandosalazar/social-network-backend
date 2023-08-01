@@ -20,8 +20,8 @@ const Post = sequelize.define(
 );
 
 Post.associate = (models) => {
-  Post.belongsTo(models.User, { as: 'user', foreignKey: 'userId' });
-  Post.hasMany(models.Comment, { as: 'comments', foreignKey: 'postId' });
+  Post.belongsTo(models.User, { as: 'users', foreignKey: 'userId' });
+  // Post.hasMany(models.Comment, { as: 'comments', foreignKey: 'postId' });
 };
 
 module.exports = Post;

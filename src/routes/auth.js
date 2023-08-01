@@ -17,8 +17,8 @@ router.post('/', async (req, res) => {
 
   if (!user) {
     return res.status(401).json({
+      message: 'Invalid credentials!',
       code: res.statusCode,
-      error: 'Invalid credentials!',
     });
   }
 
@@ -26,18 +26,19 @@ router.post('/', async (req, res) => {
 
   if (!isValidPassword) {
     return res.status(401).json({
+      message: 'Invalid credentials!',
       code: res.statusCode,
-      error: 'Invalid credentials!',
     });
   }
 
   const token = jwt.sign({ id: user.id }, 'secret', { expiresIn: '1h' });
 
-  res.header('Authorization', token);
+  res.header('Authorization', `Bearer ${token}`);
 
   res.status(200).json({
-    code: res.statusCode,
-    message: 'Login successful!',
+    id: user.id,
+    fullName: user.fullName,
+    email: user.email,
   });
 });
 

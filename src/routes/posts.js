@@ -1,14 +1,25 @@
-const posts = require('./posts.json');
+const { Router } = require('express');
+const { Post } = require('../models');
 
-module.exports = require('express')
-  .Router()
-  .get('/', (req, res) => {
-    res.json(posts);
-  })
-  .post('/', (req, res) => {
-    const post = req.body;
+const router = Router();
 
-    posts.push(post);
+router.get('/', async (req, res) => {
+  const posts = await Post.findAll();
 
-    res.send(post);
+  res.json(posts);
+});
+
+router.post('/', async (req, res) => {
+  const { userId, content } = req.body;
+
+  const post = await Post.create({
+    userId,
+    content,
   });
+
+  console.log('Post created: ', post.toJSON());
+
+  res.json(post);
+});
+
+module.exports = router;
