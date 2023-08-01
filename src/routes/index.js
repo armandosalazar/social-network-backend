@@ -1,19 +1,17 @@
 const router = require('express').Router();
-const auth = require('./auth');
-const subjects = require('./subjects');
+
+const auth = require('./auth.route');
 const posts = require('./posts');
 const users = require('./users');
-const comments = require('./comments');
+const comments = require('./comments.route');
 const notifications = require('./notifications');
-const people = require('./people');
+const messages = require('./messages.route');
 
 router.use('/auth', auth);
-router.use('/subjects', subjects);
 router.use('/users', users);
-
 router.use('/posts', posts);
 router.use('/comments', comments);
 router.use('/notifications', notifications);
-router.use('/people', people);
+router.use('/messages', messages);
 
 module.exports = router;

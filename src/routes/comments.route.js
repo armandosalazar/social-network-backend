@@ -1,5 +1,5 @@
 const { Router } = require('express');
-const comments = [
+const commentsRoute = [
   {
     id: 1,
     username: 'John',
@@ -65,7 +65,7 @@ const comments = [
 const router = Router();
 
 router.get('/', (req, res) => {
-  res.json(comments);
+  res.json(commentsRoute);
 });
 
 module.exports = router;

@@ -131,3 +131,4 @@ dist
 
 # uploads files images extensions
 uploads/*
+.idea/
