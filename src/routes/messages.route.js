@@ -1,17 +1,23 @@
 const { Router } = require('express');
 const { Message } = require('../models');
+const { Op } = require('sequelize');
+
 const verifyTokenMiddleware = require('../middleware/verifyToken.middleware');
 
 const router = Router();
 
-router.get('/{receiverId}', [verifyTokenMiddleware], async (req, res, next) => {
-  const { receiverId } = req.params;
+router.get('/:id', [verifyTokenMiddleware], async (req, res, next) => {
+  const receiverId = req.params.id;
+
+  console.log('receiverId: ', receiverId);
 
   try {
     const messages = await Message.findAll({
       where: {
-        senderId: req.user.id,
-        receiverId,
+        [Op.or]: [
+          { receiverId, senderId: req.user.id },
+          { receiverId: req.user.id, senderId: receiverId },
+        ],
       },
     });
 
