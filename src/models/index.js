@@ -2,17 +2,13 @@ const User = require('./User');
 const Post = require('./Post');
 const Message = require('./Message');
 
-User.hasMany(Post, { as: 'posts', foreignKey: 'userId' });
-Post.belongsTo(User, { as: 'users', foreignKey: 'userId' });
+User.hasMany(Post);
+Post.belongsTo(User);
 
-// User sender has many messages
-User.hasMany(Message, { as: 'sender', foreignKey: 'senderId' });
-// User receiver has many messages
-User.hasMany(Message, { as: 'receiver', foreignKey: 'receiverId' });
-// Message belongs to sender
-Message.belongsTo(User, { as: 'users1', foreignKey: 'senderId' });
-// Message belongs to receiver
-Message.belongsTo(User, { as: 'users3', foreignKey: 'receiverId' });
+User.hasMany(Message, { foreignKey: 'senderId' });
+Message.belongsTo(User, { foreignKey: 'receiverId' });
+User.hasMany(Message, { foreignKey: 'receiverId' });
+Message.belongsTo(User, { foreignKey: 'senderId' });
 
 module.exports = {
   User,

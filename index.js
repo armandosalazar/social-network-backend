@@ -3,8 +3,6 @@ const sequelize = require('./src/database');
 const { PORT } = require('./src/config');
 
 sequelize.sync({ force: false });
-
-// associate models & create sequelize
 require('./src/models');
 
 server.listen(PORT);
