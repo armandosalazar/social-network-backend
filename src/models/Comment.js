@@ -1,8 +1,9 @@
-const { DataTypes } = require('sequelize');
-const sequelize = require('../database');
+const { DataTypes, Model } = require('sequelize');
+const sequelize = require('../connection');
 
-const Comment = sequelize.define(
-  'comment',
+class Comment extends Model {}
+
+Comment.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -29,13 +30,9 @@ const Comment = sequelize.define(
     },
   },
   {
+    sequelize,
     underscored: true,
   },
 );
-
-Comment.associate = (models) => {
-  Comment.belongsTo(models.User, { as: 'user', foreignKey: 'userId' });
-  Comment.belongsTo(models.Post, { as: 'post', foreignKey: 'postId' });
-};
 
 module.exports = Comment;
