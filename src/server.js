@@ -1,10 +1,13 @@
 const app = require('./app');
 const http = require('http');
-const sockets = require('./services/sockets');
-const { Server } = require('socket.io');
+const SocketIO = require('socket.io');
 
 const server = http.createServer(app);
 
-sockets(new Server(server));
+// socket
+const io = SocketIO(server);
+// save the io instance in the app
+app.set('io', io);
+
 
 module.exports = server;

@@ -1,9 +1,8 @@
-const { Router } = require('express');
+const router = require('express').Router();
 const { Post, User } = require('../models');
 
-const router = Router();
-
 router.get('/', async (req, res) => {
+
   const posts = await Post.findAll({
     include: [
       {
@@ -15,6 +14,7 @@ router.get('/', async (req, res) => {
     attributes: ['id', 'userId', 'content', 'createdAt', 'updatedAt'],
     order: [['createdAt', 'DESC']],
   });
+
 
   console.log('Posts: ', JSON.stringify(posts, null, 2));
 
@@ -28,6 +28,9 @@ router.post('/', async (req, res) => {
     userId,
     content,
   });
+
+  const io = req.app.get('io');
+  io.emit('message', 'New post created');
 
   console.log('Post created: ', post.toJSON());
 
