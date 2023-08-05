@@ -13,6 +13,7 @@ router.get('/', async (req, res) => {
       },
     ],
     attributes: ['id', 'userId', 'content', 'createdAt', 'updatedAt'],
+    order: [['createdAt', 'DESC']],
   });
 
   console.log('Posts: ', JSON.stringify(posts, null, 2));
