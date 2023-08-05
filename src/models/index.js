@@ -1,7 +1,7 @@
 const User = require('./User');
 const Post = require('./Post');
 const Message = require('./Message');
-const FavoritePosts = require('./FavoritePosts');
+const FavoritePost = require('./FavoritePost');
 const Comment = require('./Comment');
 
 User.hasMany(Post);
@@ -15,13 +15,15 @@ Message.belongsTo(User, { foreignKey: 'receiverId' });
 User.hasMany(Message, { foreignKey: 'receiverId' });
 Message.belongsTo(User, { foreignKey: 'senderId' });
 
-User.belongsToMany(Post, { through: FavoritePosts });
-Post.belongsToMany(User, { through: FavoritePosts });
+User.hasMany(FavoritePost);
+FavoritePost.belongsTo(User);
+Post.hasMany(FavoritePost);
+FavoritePost.belongsTo(Post);
 
 module.exports = {
   User,
   Post,
   Comment,
   Message,
-  FavoritePosts,
+  FavoritePost,
 };

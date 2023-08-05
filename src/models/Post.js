@@ -1,8 +1,9 @@
-const { DataTypes } = require('sequelize');
+const { DataTypes, Model } = require('sequelize');
 const sequelize = require('../connection');
 
-const Post = sequelize.define(
-  'post',
+class Post extends Model { }
+
+Post.init(
   {
     id: {
       type: DataTypes.INTEGER,
@@ -13,15 +14,16 @@ const Post = sequelize.define(
       type: DataTypes.TEXT,
       allowNull: false,
     },
+    isFavorite: {
+      type: DataTypes.BOOLEAN,
+      defaultValue: false,
+    },
   },
   {
+    modelName: 'post',
+    sequelize,
     underscored: true,
   },
 );
-
-Post.associate = (models) => {
-  Post.belongsTo(models.User, { as: 'users', foreignKey: 'userId' });
-  // Post.hasMany(models.Comment, { as: 'comments', foreignKey: 'postId' });
-};
 
 module.exports = Post;

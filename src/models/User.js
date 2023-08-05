@@ -40,10 +40,4 @@ const User = sequelize.define(
   },
 );
 
-User.associate = (models) => {
-  // User has many posts
-  User.hasMany(models.Post, { as: 'posts', foreignKey: 'userId' });
-  // User.hasMany(models.Comment, { as: 'comments', foreignKey: 'userId' });
-};
-
 module.exports = User;
