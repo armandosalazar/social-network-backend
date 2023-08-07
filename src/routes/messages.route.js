@@ -38,6 +38,9 @@ router.post('/', [verifyTokenMiddleware], async (req, res, next) => {
       content,
     });
 
+    const io = req.app.get('io');
+    io.emit('new-message', message);
+
     console.log(JSON.parse(JSON.stringify(message)));
     res.status(201).json(message);
   } catch (error) {
