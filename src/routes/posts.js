@@ -34,7 +34,7 @@ router.get('/', [verifyTokenMiddleware], async (req, res) => {
     });
   });
 
-  // console.log('Posts: ', JSON.stringify(posts, null, 2));
+  console.log('Posts: ', JSON.stringify(posts, null, 2));
 
   return res.json(posts);
 });

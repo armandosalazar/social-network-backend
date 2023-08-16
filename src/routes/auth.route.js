@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
   const { email, password } = req.body;
 
   const user = await User.findOne({
-    attributes: ['id', 'fullName', 'email', 'password'],
+    attributes: ['id', 'fullName', 'email', 'password', 'profilePicture'],
     where: {
       email,
     },
@@ -39,6 +39,7 @@ router.post('/', async (req, res) => {
     id: user.id,
     fullName: user.fullName,
     email: user.email,
+    profilePicture: user.profilePicture,
   });
 });
 

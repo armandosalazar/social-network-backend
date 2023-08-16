@@ -42,17 +42,16 @@ router.post('/', [verifyTokenMiddleware], async (req, res, next) => {
 
     const messageSender = await Message.findOne({
       where: { id: message.id },
-      include: ['sender', 'receiver'],
+      include: ['sender'],
     });
 
-    console.log('messageWithUser: ', JSON.parse(JSON.stringify(messageSender)));
+    console.log(JSON.parse(JSON.stringify(messageSender)));
 
     // Get socket.io instance
     const io = req.app.get('io');
     // Emit message to receiver
     io.emit('server:[new-message]', messageSender);
 
-    console.log(JSON.parse(JSON.stringify(message)));
 
     return res.status(201).json(message);
   } catch (error) {

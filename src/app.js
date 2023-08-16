@@ -2,8 +2,11 @@ const express = require('express');
 const cors = require('cors');
 const morgan = require('morgan');
 const multer = require('multer');
+const path = require('path');
 
 const routes = require('./routes');
+const { User } = require('./models');
+const verifyTokenMiddleware = require('./middleware/verifyToken.middleware');
 
 const app = express();
 
@@ -19,7 +22,7 @@ app.use('/api', routes);
 // disk storage
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, 'uploads/');
+    cb(null, 'src/uploads/');
   },
   filename: (req, file, cb) => {
     cb(null, `${Date.now()}-${file.originalname}`);
@@ -28,9 +31,20 @@ const storage = multer.diskStorage({
 // upload profile picture
 const upload = multer({ storage });
 
-app.post('/profile/picture', upload.single('picture'), (req, res) => {
+app.post('/profile/picture', [verifyTokenMiddleware, upload.single('picture')], async (req, res) => {
+  console.log(req.file);
+  console.log(req.user);
+
+  await User.update(
+    { profilePicture: req.file.filename },
+    { where: { id: req.user.id } }
+  );
+
   res.send('Profile picture uploaded');
 });
+
+// serve static files
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.get('/ping', (req, res) => {
   res.send('pong');
