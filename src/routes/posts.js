@@ -11,44 +11,32 @@ router.get('/', [verifyTokenMiddleware], async (req, res) => {
       {
         model: User,
         attributes: ['id', 'fullName', 'email', 'profilePicture'],
-        include: [
-          {
-            model: FavoritePost,
-            where: {
-              userId: req.user.id,
-            },
-            // Importante porque si no existe el registro en la tabla
-            // esto genera un error
-            required: false,
-          }
-        ],
-      },
-    ],
+      }
+    ]
   });
 
   if (!posts) {
     return res.status(400).json({ message: 'No posts found' });
   }
 
-  const favoritePost = posts.map((post) => {
-    console.log('length: ', post.user.favoritePosts.length);
-
-    if (post.user.favoritePosts.length > 0) {
-      for (let i = 0; i < post.user.favoritePosts.length; i++) {
-        if (post.user.favoritePosts[i].postId === post.id) {
-          post.isFavorite = true;
-          break;
-        }
-      }
-    }
-
-
-    return post;
+  const favorites = await FavoritePost.findAll({
+    where: {
+      userId: req.user.id,
+    },
   });
 
-  console.log('Post: ', JSON.stringify(favoritePost, null, 2));
+  posts.forEach((post) => {
+    post.dataValues.isFavorite = false;
+    favorites.forEach((favorite) => {
+      if (post.id === favorite.postId) {
+        post.dataValues.isFavorite = true;
+      }
+    });
+  });
 
-  res.json(favoritePost);
+  console.log('Posts: ', JSON.stringify(posts, null, 2));
+
+  return res.json(posts);
 });
 
 router.post('/', async (req, res) => {

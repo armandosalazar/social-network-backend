@@ -3,6 +3,7 @@ const Post = require('./Post');
 const Message = require('./Message');
 const FavoritePost = require('./FavoritePost');
 const Comment = require('./Comment');
+const FavoriteComment = require('./FavoriteComment');
 
 User.hasMany(Post);
 Post.belongsTo(User);
@@ -20,10 +21,16 @@ FavoritePost.belongsTo(User);
 Post.hasMany(FavoritePost);
 FavoritePost.belongsTo(Post);
 
+User.hasMany(FavoriteComment);
+FavoriteComment.belongsTo(User);
+Comment.hasMany(FavoriteComment);
+FavoriteComment.belongsTo(Comment);
+
 module.exports = {
   User,
   Post,
   Comment,
   Message,
   FavoritePost,
+  FavoriteComment,
 };
