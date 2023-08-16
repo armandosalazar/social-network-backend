@@ -34,7 +34,7 @@ router.get('/', [verifyTokenMiddleware], async (req, res) => {
     });
   });
 
-  console.log('Posts: ', JSON.stringify(posts, null, 2));
+  // console.log('Posts: ', JSON.stringify(posts, null, 2));
 
   return res.json(posts);
 });
@@ -42,17 +42,35 @@ router.get('/', [verifyTokenMiddleware], async (req, res) => {
 router.post('/', async (req, res) => {
   const { userId, content } = req.body;
 
+  // Create post
   const post = await Post.create({
     userId,
     content,
   });
 
+  // Get post with user
+  const postWithUser = await Post.findOne({
+    where: {
+      id: post.id,
+    },
+    attributes: ['id', 'userId', 'content', 'createdAt', 'updatedAt'],
+    include: [
+      {
+        model: User,
+        attributes: ['id', 'fullName', 'email', 'profilePicture'],
+      }
+    ]
+  });
+
+
+  // Emit new post to all connected clients
   const io = req.app.get('io');
-  io.emit('new-post', post.toJSON());
+  io.emit('server:[new-post]', postWithUser);
 
-  console.log('Post created: ', post.toJSON());
+  // Print post
+  console.log('Post created: ', JSON.stringify(postWithUser, null, 2));
 
-  res.json(post);
+  return res.json(post);
 });
 
 router.post('/favorite', [verifyTokenMiddleware], async (req, res) => {
