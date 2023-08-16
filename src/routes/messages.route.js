@@ -25,6 +25,7 @@ router.get('/:id', [verifyTokenMiddleware], async (req, res, next) => {
   } catch (error) {
     console.log(error);
     res.status(500).json({ message: error.message });
+    next(error);
   }
 });
 
@@ -32,20 +33,31 @@ router.post('/', [verifyTokenMiddleware], async (req, res, next) => {
   try {
     const { receiverId, content } = req.body;
 
+    // Create message
     const message = await Message.create({
       senderId: req.user.id,
       receiverId,
       content,
     });
 
+    const messageSender = await Message.findOne({
+      where: { id: message.id },
+      include: ['sender', 'receiver'],
+    });
+
+    console.log('messageWithUser: ', JSON.parse(JSON.stringify(messageSender)));
+
+    // Get socket.io instance
     const io = req.app.get('io');
-    io.emit('new-message', message);
+    // Emit message to receiver
+    io.emit('server:[new-message]', messageSender);
 
     console.log(JSON.parse(JSON.stringify(message)));
-    res.status(201).json(message);
+
+    return res.status(201).json(message);
   } catch (error) {
     console.log(error);
-    res.status(500).json({ message: error.message });
+    return res.status(500).json({ message: error.message });
   }
 });
 

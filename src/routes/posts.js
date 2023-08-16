@@ -121,6 +121,4 @@ router.delete('/favorite', [verifyTokenMiddleware], async (req, res) => {
   res.json({ message: 'Post unfavorited' });
 });
 
-
-
 module.exports = router;

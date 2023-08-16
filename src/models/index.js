@@ -11,10 +11,10 @@ Post.belongsTo(User);
 User.belongsToMany(Post, { through: Comment });
 Post.belongsToMany(User, { through: Comment });
 
-User.hasMany(Message, { foreignKey: 'senderId' });
-Message.belongsTo(User, { foreignKey: 'receiverId' });
-User.hasMany(Message, { foreignKey: 'receiverId' });
-Message.belongsTo(User, { foreignKey: 'senderId' });
+User.hasMany(Message, { foreignKey: 'senderId', as: 'sender' });
+Message.belongsTo(User, { foreignKey: 'receiverId', as: 'receiver' });
+User.hasMany(Message, { foreignKey: 'receiverId', as: 'receiver' });
+Message.belongsTo(User, { foreignKey: 'senderId', as: 'sender' });
 
 User.hasMany(FavoritePost);
 FavoritePost.belongsTo(User);
