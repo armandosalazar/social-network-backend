@@ -1,7 +1,7 @@
 {
-  "name": "ase-backend",
+  "name": "social-network-backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "Backend of a social network, with real-time communication",
   "main": "index.js",
   "scripts": {
     "start": "node .",
@@ -11,7 +11,7 @@
     "prettier": "prettier --write ."
   },
   "keywords": [],
-  "author": "",
+  "author": "Armando Salazar",
   "license": "ISC",
   "dependencies": {
     "bcrypt": "^5.1.0",
@@ -33,5 +33,13 @@
     "eslint-plugin-promise": "^6.1.1",
     "nodemon": "^3.0.1",
     "prettier": "^3.0.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/armandosalazar/social-network-backend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/armandosalazar/social-network-backend/issues"
+  },
+  "homepage": "https://github.com/armandosalazar/social-network-backend#readme"
 }
