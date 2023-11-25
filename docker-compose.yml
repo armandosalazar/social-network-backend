@@ -7,8 +7,9 @@ services:
       - 80:3000
     volumes:
       - .:/usr/src/app
+      - /usr/src/app/node_modules # This is to avoid the node_modules folder to be overwritten by the container !IMPORTANT
     environment:
-      - PORT=3000
+      - NODE_ENV=development
     command: npm run dev
   service-db:
     image: mysql:5.7
@@ -18,7 +19,5 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=root
       - MYSQL_DATABASE=social_network_schema
-      # - MYSQL_USER=rodry # My MYSQL user not root
-      # - MYSQL_PASSWORD=rodry # My MYSQL password not root
-    volumes:
-      - ./db:/docker-entrypoint-initdb.d
+      - MYSQL_USER=user # My MYSQL user not root
+      - MYSQL_PASSWORD=123 # My MYSQL password not root
