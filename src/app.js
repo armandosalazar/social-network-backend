@@ -14,7 +14,9 @@ const app = express();
 // !importatnt: the order of the middlewares is important
 // use for reading the body of the request
 app.use(express.json()); // for parsing application/json
-app.use(cors()); // permite que cualquier cliente se conecte a la api
+app.use(cors({
+  exposedHeaders: ['Authorization'], // https://bobbyhadz.com/blog/axios-get-response-headers
+})); // permite que cualquier cliente se conecte a la api
 app.use(morgan('dev'));
 
 app.use('/api', routes);
