@@ -1,7 +1,7 @@
 const { Sequelize } = require('sequelize');
 
-const sequelize = new Sequelize('ase_schema', 'root', 'hellofriend', {
-  host: '127.0.0.1',
+const sequelize = new Sequelize('social_network_schema', 'root', 'root', {
+  host: 'service-db',
   dialect: 'mysql',
   port: 3306,
 });

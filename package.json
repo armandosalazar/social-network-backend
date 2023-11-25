@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node .",
-    "dev": "nodemon ",
+    "dev": "nodemon .",
     "lint": "eslint . --fix",
     "prettier-check": "prettier --check .",
     "prettier": "prettier --write ."

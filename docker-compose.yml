@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  service-app:
+    build: .
+    container_name: service-app
+    ports:
+      - 80:3000
+    volumes:
+      - .:/usr/src/app
+    environment:
+      - PORT=3000
+    command: npm run dev
+  service-db:
+    image: mysql:5.7
+    container_name: 'service-db'
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=social_network_schema
+      # - MYSQL_USER=rodry # My MYSQL user not root
+      # - MYSQL_PASSWORD=rodry # My MYSQL password not root
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
